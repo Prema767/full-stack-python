@@ -1,0 +1,39 @@
+
+import requests
+from bs4 import BeautifulSoup
+
+print("===== TECH HEADLINE SCRAPER =====")
+
+url = "https://www.bbc.com/news/technology"
+
+try:
+    response = requests.get(url, timeout=10)
+
+    if response.status_code == 200:
+
+        soup = BeautifulSoup(response.text, "html.parser")
+
+        headlines = soup.find_all("h2")
+
+        file = open("headlines.txt", "w")
+
+        count = 0
+
+        for headline in headlines:
+            text = headline.get_text(strip=True)
+
+            if text:
+                print(text)
+                file.write(text + "\n")
+                count += 1
+
+        file.close()
+
+        print("\nTotal headlines:", count)
+        print("Headlines saved successfully!")
+
+    else:
+        print("Website error:", response.status_code)
+
+except requests.exceptions.RequestException:
+    print("Unable to connect to website!")
