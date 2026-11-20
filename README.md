@@ -10,7 +10,7 @@ def calculator():
     print("3. Multiplication (*)")
     print("4. Division (/)")
 
-    choice = input("Choose operation (1-4): ")
+   choice = input("Choose operation (1-4): ")
 
     if choice == "1":
         print("Result:", num1 + num2)
